@@ -19,6 +19,7 @@ firebasePerfPlugin = "1.4.2"
 ksp = "1.9.22-1.0.18"
 room = "2.6.1"
 truth = "1.4.2"
+navigation = "2.7.7"
 appcompat = "1.6.1"
 material = "1.11.0"
 
@@ -37,6 +38,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 
 # Dependencies of the included build-logic
@@ -61,6 +63,7 @@ jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains
 # Custom plugins
 recipe-android-application = { id = "recipe.android.application", version = "unspecified" }
 recipe-android-application-compose = { id = "recipe.android.application.compose", version = "unspecified" }
+recipe-android-feature = { id = "recipe.android.feature", version = "unspecified" }
 recipe-android-library = { id = "recipe.android.library", version = "unspecified" }
 recipe-android-library-compose = { id = "recipe.android.library.compose", version = "unspecified" }
 

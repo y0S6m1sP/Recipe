@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.rocky.feature.home"
+    namespace = "com.rocky.feature.settings"
 }
 
 dependencies {
