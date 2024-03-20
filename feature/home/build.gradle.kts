@@ -10,7 +10,8 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
+    implementation(projects.core.data)
+    implementation(projects.core.ui)
 
     // implement the :core:testing module later
 }

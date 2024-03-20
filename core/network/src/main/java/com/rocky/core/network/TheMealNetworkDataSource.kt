@@ -4,9 +4,10 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
+import com.rocky.core.network.model.NetworkRecipes
 
 interface TheMealNetworkDataSource {
-    suspend fun searchByName(query: String): List<Recipe>
+    suspend fun searchByName(query: String): NetworkRecipes
 
     suspend fun listByFirstLetter(letter: String): List<Recipe>
 

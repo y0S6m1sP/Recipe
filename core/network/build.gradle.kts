@@ -11,9 +11,10 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.model)
+    api(projects.core.model)
 
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.moshi)
+    implementation(libs.retrofit.moshi.converter)
+    implementation(libs.square.moshi.ktx)
 }

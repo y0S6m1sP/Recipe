@@ -4,13 +4,14 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
+import com.rocky.core.network.model.NetworkRecipes
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface TheMealApi {
 
     @GET("search.php")
-    suspend fun searchByName(@Query("s") query: String): List<Recipe>
+    suspend fun searchByName(@Query("s") query: String): NetworkRecipes
 
     @GET("search.php")
     suspend fun listByFirstLetter(@Query("f") letter: String): List<Recipe>

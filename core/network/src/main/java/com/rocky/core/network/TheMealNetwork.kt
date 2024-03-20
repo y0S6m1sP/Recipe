@@ -4,25 +4,35 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
+import com.rocky.core.network.model.NetworkRecipes
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
 
+@Singleton
 class TheMealNetwork @Inject constructor(
     okhttpCallFactory: dagger.Lazy<Call.Factory>
 ) : TheMealNetworkDataSource {
 
+    private val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
+
     private val api = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .callFactory { okhttpCallFactory.get().newCall(it) }
-        .addConverterFactory(MoshiConverterFactory.create())
+        .addConverterFactory(MoshiConverterFactory.create(moshi))
         .build()
         .create(TheMealApi::class.java)
 
-    override suspend fun searchByName(query: String): List<Recipe> = api.searchByName(query = query)
+    override suspend fun searchByName(query: String): NetworkRecipes =
+        api.searchByName(query = query)
 
     override suspend fun listByFirstLetter(letter: String): List<Recipe> =
         api.listByFirstLetter(letter = letter)

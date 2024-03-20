@@ -1,6 +1,9 @@
 package com.rocky.core.network.di
 
 import com.rocky.core.network.BuildConfig
+import com.rocky.core.network.TheMealNetwork
+import com.rocky.core.network.TheMealNetworkDataSource
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +31,16 @@ object NetworkModule {
             .build()
     }
 
+
+}
+
+/**
+ * move FlavoredNetworkModule to specific flavor package to binds different dataSource
+ */
+@Module
+@InstallIn(SingletonComponent::class)
+internal interface FlavoredNetworkModule {
+
+    @Binds
+    fun binds(impl: TheMealNetwork): TheMealNetworkDataSource
 }

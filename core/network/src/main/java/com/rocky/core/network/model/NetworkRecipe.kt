@@ -1,6 +1,14 @@
-package com.rocky.core.model
+package com.rocky.core.network.model
 
-data class Recipe(
+import com.squareup.moshi.JsonClass
+
+@JsonClass(generateAdapter = true)
+data class NetworkRecipes(
+    val meals: List<NetworkRecipe>
+)
+
+@JsonClass(generateAdapter = true)
+data class NetworkRecipe(
     val idMeal: String = "",
     val strMeal: String = "",
     val strDrinkAlternate: String? = null,
