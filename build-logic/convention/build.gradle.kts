@@ -48,6 +48,10 @@ gradlePlugin {
             id = "recipe.android.feature"
             implementationClass = "AndroidFeatureConventionPlugin"
         }
+        register("androidHilt") {
+            id = "recipe.android.hilt"
+            implementationClass = "AndroidHiltConventionPlugin"
+        }
         register("androidLibrary") {
             id = "recipe.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"

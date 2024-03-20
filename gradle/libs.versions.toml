@@ -7,7 +7,7 @@ kotlin = "1.9.22"
 coreKtx = "1.12.0"
 junit = "4.13.2"
 junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+espressoCore = "3.5.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 composeBom = "2023.08.00"
@@ -22,6 +22,10 @@ truth = "1.4.2"
 navigation = "2.7.7"
 appcompat = "1.6.1"
 material = "1.11.0"
+hilt = "2.51"
+coil = "2.6.0"
+okhttp = "4.12.0"
+retrofit = "2.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +43,15 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigation" }
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 
 # Dependencies of the included build-logic
@@ -59,11 +72,14 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 android-test = { id = "com.android.test", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 
 # Custom plugins
 recipe-android-application = { id = "recipe.android.application", version = "unspecified" }
 recipe-android-application-compose = { id = "recipe.android.application.compose", version = "unspecified" }
 recipe-android-feature = { id = "recipe.android.feature", version = "unspecified" }
+recipe-android-hilt = { id = "recipe.android.hilt", version = "unspecified" }
 recipe-android-library = { id = "recipe.android.library", version = "unspecified" }
 recipe-android-library-compose = { id = "recipe.android.library.compose", version = "unspecified" }
 
