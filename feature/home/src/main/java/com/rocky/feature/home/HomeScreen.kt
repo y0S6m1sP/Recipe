@@ -55,7 +55,7 @@ fun HomeContent(
             .padding(paddingValues = paddingValues)
     ) {
         Text(
-            modifier = Modifier.padding(24.dp),
+            modifier = Modifier.padding(horizontal =  24.dp, vertical = 16.dp),
             lineHeight = 40.sp,
             text = stringResource(id = R.string.feature_home_slogan),
             fontSize = 32.sp,
