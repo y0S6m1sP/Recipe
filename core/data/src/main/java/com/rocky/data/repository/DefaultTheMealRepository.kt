@@ -12,7 +12,7 @@ class DefaultTheMealRepository @Inject constructor(
 ) : TheMealRepository {
     override fun searchByNames(name: String): Flow<List<Recipe>> {
         return flow {
-            emit(network.searchByName(name).meals.map { it.asRecipe() })
+            emit(network.searchByName(name).meals?.map { it.asRecipe() } ?: emptyList())
         }
     }
 

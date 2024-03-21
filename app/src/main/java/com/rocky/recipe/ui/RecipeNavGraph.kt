@@ -17,7 +17,6 @@ import com.rocky.feature.home.homeScreen
 import com.rocky.feature.home.navigateToHome
 import com.rocky.feature.settings.navigateToSettings
 import com.rocky.feature.settings.settingsScreen
-import com.rocky.recipe.ui.componenet.RecipeBottomBar
 
 @Composable
 fun RecipeNavGraph(
@@ -53,11 +52,10 @@ fun LandingNavGraph(
         },
     ) {
         NavHost(navController = navController, startDestination = HOME_ROUTE) {
-            homeScreen()
+            homeScreen(it)
             favoriteScreen()
             settingsScreen()
         }
-        println("$it")
     }
 
 }

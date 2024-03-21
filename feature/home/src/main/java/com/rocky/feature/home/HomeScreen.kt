@@ -1,53 +1,83 @@
 package com.rocky.feature.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rocky.core.model.Recipe
+import com.rocky.core.ui.BigImageRecipeList
+import com.rocky.core.ui.CategoryBar
+import com.rocky.core.ui.SearchBar
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(paddingValues: PaddingValues, viewModel: HomeViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
         viewModel.searchByNames("cake")
     }
 
-    HomeContent(meals = uiState.meals)
+    HomeContent(
+        paddingValues = paddingValues,
+        meals = uiState.meals,
+        onCategoryClick = { viewModel.searchByNames(it) },
+        onSearch = { viewModel.searchByNames(it) }
+    )
 }
 
 @Composable
 fun HomeContent(
-    meals: List<Recipe> = emptyList(),
+    modifier: Modifier = Modifier,
+    paddingValues: PaddingValues,
+    meals: List<Recipe>? = emptyList(),
+    onCategoryClick: ((String) -> Unit)? = null,
+    onSearch: ((String) -> Unit)? = null
 ) {
-    LazyColumn {
-        items(meals) {
-            RecipeItem(recipe = it)
+    Column(
+        modifier
+            .fillMaxSize()
+            .padding(paddingValues = paddingValues)
+    ) {
+        Text(
+            modifier = Modifier.padding(24.dp),
+            lineHeight = 40.sp,
+            text = stringResource(id = R.string.feature_home_slogan),
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+        )
+        SearchBar(modifier = Modifier.padding(horizontal = 24.dp)) {
+            onSearch?.invoke(it)
         }
+        CategoryBar(modifier = Modifier.fillMaxWidth()) {
+            onCategoryClick?.invoke(it)
+        }
+        BigImageRecipeList(modifier = Modifier.weight(1f), recipeList = meals ?: emptyList())
     }
 }
 
 @Composable
-fun RecipeItem(recipe: Recipe, modifier: Modifier = Modifier) {
-    Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(64.dp),
-        horizontalArrangement = Arrangement.Center
-    ) {
-        Text(text = "${recipe.idMeal} ${recipe.strMeal}")
-    }
+@Preview(showBackground = true)
+fun HomeContentPreview() {
+    val recipe = Recipe(strMeal = "Bruschettas with cheese", strMealThumb = "")
+    val recipeList = listOf(recipe, recipe, recipe)
+    HomeContent(paddingValues = PaddingValues(), meals = recipeList)
 }
 
 
