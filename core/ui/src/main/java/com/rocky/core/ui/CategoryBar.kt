@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +12,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,7 +27,7 @@ fun CategoryBar(
     val labelList = listOf("breakfast", "lunch", "dinner", "snack")
     LazyRow(
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
+        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         itemsIndexed(labelList) { index, label ->
@@ -56,6 +56,7 @@ fun CategoryItem(
             },
         text = text,
         fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
         color = if (isSelected) MaterialTheme.colorScheme.primary else Color.LightGray
     )
 }

@@ -2,10 +2,8 @@ package com.rocky.feature.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +53,7 @@ fun HomeContent(
             .padding(paddingValues = paddingValues)
     ) {
         Text(
-            modifier = Modifier.padding(horizontal =  24.dp, vertical = 16.dp),
+            modifier = Modifier.padding(horizontal =  24.dp, vertical = 24.dp),
             lineHeight = 40.sp,
             text = stringResource(id = R.string.feature_home_slogan),
             fontSize = 32.sp,

@@ -8,29 +8,31 @@ import androidx.compose.material.icons.twotone.Favorite
 import androidx.compose.material.icons.twotone.Home
 import androidx.compose.material.icons.twotone.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import com.rocky.recipe.R
 import com.rocky.feature.favorites.R as favoritesR
 import com.rocky.feature.home.R as homeR
 import com.rocky.feature.settings.R as settingsR
 
 
 enum class LandingDestination(
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
+    val selectedIcon: Int,
+    val unselectedIcon: Int,
     val iconTextRes: Int,
 ) {
     HOME(
-        selectedIcon = Icons.Rounded.Home,
-        unselectedIcon = Icons.TwoTone.Home,
+        selectedIcon = R.drawable.ic_filled_home,
+        unselectedIcon = R.drawable.ic_outline_home,
         iconTextRes = homeR.string.feature_home_title
     ),
     FAVORITES(
-        selectedIcon = Icons.Rounded.Favorite,
-        unselectedIcon = Icons.TwoTone.Favorite,
+        selectedIcon = R.drawable.ic_filled_favorite,
+        unselectedIcon = R.drawable.ic_outline_favorite,
         iconTextRes = favoritesR.string.feature_favorites_title
     ),
     SETTINGS(
-        selectedIcon = Icons.Rounded.Settings,
-        unselectedIcon = Icons.TwoTone.Settings,
+        selectedIcon = R.drawable.ic_filled_setting,
+        unselectedIcon = R.drawable.ic_outline_setting,
         iconTextRes = settingsR.string.feature_settings_title
     )
 }

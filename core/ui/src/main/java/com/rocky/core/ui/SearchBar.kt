@@ -59,13 +59,19 @@ fun SearchBar(
                 unfocusedIndicatorColor = Color.Transparent
             ),
             singleLine = true,
-            placeholder = { Text(text = stringResource(id = R.string.search)) }
+            placeholder = {
+                Text(
+                    text = stringResource(id = R.string.search),
+                    color = MaterialTheme.colorScheme.secondary
+                )
+            }
         )
         Spacer(modifier = Modifier.width(8.dp))
         Icon(
             modifier = Modifier.clickable { onSearch?.invoke(text.text) },
             painter = painterResource(id = R.drawable.ic_search),
-            contentDescription = "search"
+            contentDescription = "search",
+            tint = MaterialTheme.colorScheme.secondary
         )
     }
 }

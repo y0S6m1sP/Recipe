@@ -45,7 +45,7 @@ private fun BigImageRecipeCard(modifier: Modifier = Modifier, name: String, imag
         ),
         modifier = modifier
             .fillMaxHeight()
-            .width(200.dp)
+            .width(180.dp)
     ) {
         Box(contentAlignment = Alignment.BottomStart) {
             AsyncImage(

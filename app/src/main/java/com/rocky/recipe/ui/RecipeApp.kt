@@ -1,15 +1,17 @@
 package com.rocky.recipe.ui
 
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 
 @Composable
 fun RecipeApp() {
@@ -23,22 +25,30 @@ fun RecipeBottomBar(
     onNavigate: (LandingDestination) -> Unit
 ) {
     var selectedItem by remember { mutableIntStateOf(0) }
-    NavigationBar {
+    NavigationBar(
+        containerColor = Color.Transparent,
+    ) {
         destinations.forEachIndexed { index, destination ->
             NavigationBarItem(
                 icon = {
-                    if (selectedItem == index) {
-                        Icon(imageVector = destination.selectedIcon, contentDescription = null)
-                    } else {
-                        Icon(imageVector = destination.unselectedIcon, contentDescription = null)
-                    }
+                    Icon(
+                        painter = if (selectedItem == index) {
+                            painterResource(id = destination.selectedIcon)
+                        } else {
+                            painterResource(id = destination.unselectedIcon)
+                        },
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                 },
-                label = { Text(stringResource(id = destination.iconTextRes)) },
                 selected = selectedItem == index,
                 onClick = {
                     selectedItem = index
                     onNavigate(destination)
-                }
+                },
+                colors = NavigationBarItemDefaults.colors(
+                    indicatorColor = MaterialTheme.colorScheme.background
+                ),
             )
         }
     }
