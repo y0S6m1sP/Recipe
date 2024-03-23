@@ -37,7 +37,7 @@ class TheMealNetwork @Inject constructor(
     override suspend fun listByFirstLetter(letter: String): List<Recipe> =
         api.listByFirstLetter(letter = letter)
 
-    override suspend fun lookupById(id: String): Recipe = api.lookupById(id = id)
+    override suspend fun lookupById(id: String): NetworkRecipes = api.lookupById(id = id)
 
     override suspend fun random(): Recipe = api.random()
 

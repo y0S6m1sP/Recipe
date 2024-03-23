@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="search">Search</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="servings">Servings</string>
+    <string name="instructions">Instructions</string>
 </resources>

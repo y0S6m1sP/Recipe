@@ -1,5 +1,7 @@
 package com.rocky.recipe.ui
 
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -10,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.rocky.feature.detail.DetailScreen
 import com.rocky.feature.favorites.favoriteScreen
 import com.rocky.feature.favorites.navigateToFavorites
 import com.rocky.feature.home.HOME_ROUTE
@@ -33,7 +36,16 @@ fun RecipeNavGraph(
         route = "main"
     ) {
         composable(RecipeDestinations.LANDING_ROUTE) {
-            LandingNavGraph()
+            LandingNavGraph(navActions = navActions)
+        }
+        composable(
+            RecipeDestinations.DETAIL_ROUTE,
+            enterTransition = { slideInVertically { it } },
+            exitTransition = { slideOutVertically { -it } },
+            popEnterTransition = { slideInVertically { -it } },
+            popExitTransition = { slideOutVertically { it } },
+        ) {
+            DetailScreen()
         }
     }
 }
@@ -42,6 +54,7 @@ fun RecipeNavGraph(
 fun LandingNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
+    navActions: RecipeNavigationActions
 ) {
     Scaffold(
         modifier = modifier,
@@ -52,7 +65,9 @@ fun LandingNavGraph(
         },
     ) {
         NavHost(navController = navController, startDestination = HOME_ROUTE) {
-            homeScreen(it)
+            homeScreen(it) {
+                navActions.navigateToDetail(it)
+            }
             favoriteScreen()
             settingsScreen()
         }

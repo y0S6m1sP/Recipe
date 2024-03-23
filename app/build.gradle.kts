@@ -42,6 +42,7 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.favorites)
     implementation(projects.feature.settings)
+    implementation(projects.feature.detail)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -4,6 +4,7 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
+import com.rocky.core.network.model.NetworkRecipe
 import com.rocky.core.network.model.NetworkRecipes
 
 interface TheMealNetworkDataSource {
@@ -11,7 +12,7 @@ interface TheMealNetworkDataSource {
 
     suspend fun listByFirstLetter(letter: String): List<Recipe>
 
-    suspend fun lookupById(id: String): Recipe
+    suspend fun lookupById(id: String): NetworkRecipes
 
     suspend fun random(): Recipe
 

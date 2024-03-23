@@ -1,5 +1,6 @@
 package com.rocky.core.ui
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,20 +26,28 @@ import coil.compose.AsyncImage
 import com.rocky.core.model.Recipe
 
 @Composable
-fun BigImageRecipeList(modifier: Modifier = Modifier, recipeList: List<Recipe>) {
+fun BigImageRecipeList(
+    modifier: Modifier = Modifier,
+    recipeList: List<Recipe>,
+    onMealClick: ((String) -> Unit)? = null
+) {
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(recipeList) {
-            BigImageRecipeCard(name = it.strMeal, imageUrl = it.strMealThumb)
+            BigImageRecipeCard(recipe = it, onMealClick = onMealClick)
         }
     }
 }
 
 @Composable
-private fun BigImageRecipeCard(modifier: Modifier = Modifier, name: String, imageUrl: String) {
+private fun BigImageRecipeCard(
+    modifier: Modifier = Modifier,
+    recipe: Recipe,
+    onMealClick: ((String) -> Unit)? = null
+) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -46,16 +55,19 @@ private fun BigImageRecipeCard(modifier: Modifier = Modifier, name: String, imag
         modifier = modifier
             .fillMaxHeight()
             .width(180.dp)
+            .clickable {
+                onMealClick?.invoke(recipe.idMeal)
+            }
     ) {
         Box(contentAlignment = Alignment.BottomStart) {
             AsyncImage(
                 modifier = Modifier.fillMaxSize(),
-                model = imageUrl,
+                model = recipe.strMealThumb,
                 contentDescription = null,
                 contentScale = ContentScale.Crop
             )
             Text(
-                text = name,
+                text = recipe.strMeal,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier

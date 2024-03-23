@@ -4,6 +4,7 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
+import com.rocky.core.network.model.NetworkRecipe
 import com.rocky.core.network.model.NetworkRecipes
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -17,7 +18,7 @@ interface TheMealApi {
     suspend fun listByFirstLetter(@Query("f") letter: String): List<Recipe>
 
     @GET("lookup.php")
-    suspend fun lookupById(@Query("i") id: String): Recipe
+    suspend fun lookupById(@Query("i") id: String): NetworkRecipes
 
     @GET("random.php")
     suspend fun random(): Recipe

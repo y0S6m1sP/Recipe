@@ -16,4 +16,9 @@ class DefaultTheMealRepository @Inject constructor(
         }
     }
 
+    override fun lookupById(id: String): Flow<Recipe> {
+        return flow {
+            emit(network.lookupById(id).meals?.firstOrNull()?.asRecipe() ?: Recipe())
+        }
+    }
 }

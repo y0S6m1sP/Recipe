@@ -10,8 +10,11 @@ const val HOME_ROUTE = "home_route"
 
 fun NavController.navigateToHome(navOptions: NavOptions) = navigate(HOME_ROUTE, navOptions)
 
-fun NavGraphBuilder.homeScreen(paddingValues: PaddingValues) {
+fun NavGraphBuilder.homeScreen(
+    paddingValues: PaddingValues,
+    onMealClick: ((String) -> Unit)? = null
+) {
     composable(route = HOME_ROUTE) {
-        HomeScreen(paddingValues)
+        HomeScreen(paddingValues, onMealClick = onMealClick)
     }
 }

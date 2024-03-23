@@ -24,7 +24,11 @@ import com.rocky.core.ui.CategoryBar
 import com.rocky.core.ui.SearchBar
 
 @Composable
-fun HomeScreen(paddingValues: PaddingValues, viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    paddingValues: PaddingValues,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onMealClick: ((String) -> Unit)? = null
+) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
@@ -33,9 +37,10 @@ fun HomeScreen(paddingValues: PaddingValues, viewModel: HomeViewModel = hiltView
 
     HomeContent(
         paddingValues = paddingValues,
-        meals = uiState.meals,
+        meals = uiState.recipes,
         onCategoryClick = { viewModel.searchByNames(it) },
-        onSearch = { viewModel.searchByNames(it) }
+        onSearch = { viewModel.searchByNames(it) },
+        onMealClick = onMealClick
     )
 }
 
@@ -45,7 +50,8 @@ fun HomeContent(
     paddingValues: PaddingValues,
     meals: List<Recipe>? = emptyList(),
     onCategoryClick: ((String) -> Unit)? = null,
-    onSearch: ((String) -> Unit)? = null
+    onSearch: ((String) -> Unit)? = null,
+    onMealClick: ((String) -> Unit)? = null,
 ) {
     Column(
         modifier
@@ -53,7 +59,7 @@ fun HomeContent(
             .padding(paddingValues = paddingValues)
     ) {
         Text(
-            modifier = Modifier.padding(horizontal =  24.dp, vertical = 24.dp),
+            modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
             lineHeight = 40.sp,
             text = stringResource(id = R.string.feature_home_slogan),
             fontSize = 32.sp,
@@ -66,7 +72,11 @@ fun HomeContent(
         CategoryBar(modifier = Modifier.fillMaxWidth()) {
             onCategoryClick?.invoke(it)
         }
-        BigImageRecipeList(modifier = Modifier.weight(1f), recipeList = meals ?: emptyList())
+        BigImageRecipeList(
+            modifier = Modifier.weight(1f),
+            recipeList = meals ?: emptyList(),
+            onMealClick = onMealClick
+        )
     }
 }
 

@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 data class HomeUiState(
     val isLoading: Boolean = false,
-    val meals: List<Recipe> = emptyList()
+    val recipes: List<Recipe> = emptyList()
 )
 
 @HiltViewModel
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             theMealRepository.searchByNames(name).collect {
                 _uiState.update { currentState ->
-                    currentState.copy(isLoading = false, meals = it)
+                    currentState.copy(isLoading = false, recipes = it)
                 }
             }
         }
