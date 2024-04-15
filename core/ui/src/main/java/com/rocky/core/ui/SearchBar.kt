@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -42,8 +41,8 @@ fun SearchBar(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .clip(RoundedCornerShape(48.dp))
-            .background(MaterialTheme.colorScheme.inversePrimary)
+            .clip(RoundedCornerShape(16.dp))
+            .background(searchBarBackground)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -62,7 +61,7 @@ fun SearchBar(
             placeholder = {
                 Text(
                     text = stringResource(id = R.string.search),
-                    color = MaterialTheme.colorScheme.secondary
+                    color = onSearchBar
                 )
             }
         )
@@ -71,7 +70,7 @@ fun SearchBar(
             modifier = Modifier.clickable { onSearch?.invoke(text.text) },
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "search",
-            tint = MaterialTheme.colorScheme.secondary
+            tint = onSearchBar
         )
     }
 }

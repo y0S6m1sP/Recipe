@@ -2,9 +2,13 @@ package com.rocky.feature.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -60,14 +64,24 @@ fun HomeContent(
             .fillMaxSize()
             .padding(paddingValues = paddingValues)
     ) {
-        Text(
-            modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp),
-            lineHeight = 40.sp,
-            text = stringResource(id = R.string.feature_home_slogan),
-            fontSize = 32.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Start,
-        )
+        Row {
+            Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp)) {
+                Text(
+                    text = stringResource(id = R.string.feature_home_hello_chef),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(id = R.string.feature_home_slogan),
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.5f)
+                )
+            }
+        }
         SearchBar(modifier = Modifier.padding(horizontal = 24.dp)) {
             onSearch?.invoke(it)
         }
