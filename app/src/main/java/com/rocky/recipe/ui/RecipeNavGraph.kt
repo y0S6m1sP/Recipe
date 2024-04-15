@@ -1,7 +1,5 @@
 package com.rocky.recipe.ui
 
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -38,14 +36,8 @@ fun RecipeNavGraph(
         composable(RecipeDestinations.LANDING_ROUTE) {
             LandingNavGraph(navActions = navActions)
         }
-        composable(
-            RecipeDestinations.DETAIL_ROUTE,
-            enterTransition = { slideInVertically { it } },
-            exitTransition = { slideOutVertically { -it } },
-            popEnterTransition = { slideInVertically { -it } },
-            popExitTransition = { slideOutVertically { it } },
-        ) {
-            DetailScreen()
+        composable(RecipeDestinations.DETAIL_ROUTE) {
+            DetailScreen(onNavigationIconClick = { navController.popBackStack() })
         }
     }
 }
