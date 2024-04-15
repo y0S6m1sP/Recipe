@@ -37,6 +37,7 @@ fun HomeScreen(
 
     HomeContent(
         paddingValues = paddingValues,
+        isLoading = uiState.isLoading,
         meals = uiState.recipes,
         onCategoryClick = { viewModel.searchByNames(it) },
         onSearch = { viewModel.searchByNames(it) },
@@ -48,6 +49,7 @@ fun HomeScreen(
 fun HomeContent(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
+    isLoading: Boolean = false,
     meals: List<Recipe>? = emptyList(),
     onCategoryClick: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
@@ -74,6 +76,7 @@ fun HomeContent(
         }
         BigImageRecipeList(
             modifier = Modifier.weight(1f),
+            isLoading = isLoading,
             recipeList = meals ?: emptyList(),
             onMealClick = onMealClick
         )

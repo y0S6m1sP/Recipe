@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocky.core.model.Recipe
 import com.rocky.data.repository.TheMealRepository
+import com.rocky.data.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +29,19 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             theMealRepository.searchByNames(name).collect {
                 _uiState.update { currentState ->
-                    currentState.copy(isLoading = false, recipes = it)
+                    when (it) {
+                        is Result.Error -> {
+                            currentState.copy(isLoading = false)
+                        }
+
+                        Result.Loading -> {
+                            currentState.copy(isLoading = true)
+                        }
+
+                        is Result.Success -> {
+                            currentState.copy(isLoading = false, recipes = it.data)
+                        }
+                    }
                 }
             }
         }

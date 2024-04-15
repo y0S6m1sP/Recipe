@@ -4,6 +4,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -28,18 +30,25 @@ import com.rocky.core.model.Recipe
 @Composable
 fun BigImageRecipeList(
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     recipeList: List<Recipe>,
     onMealClick: ((String) -> Unit)? = null
 ) {
-    LazyRow(
-        modifier = modifier,
-        contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(recipeList) {
-            BigImageRecipeCard(recipe = it, onMealClick = onMealClick)
+
+    if (isLoading) {
+        BigImageRecipeCardLoading()
+    } else {
+        LazyRow(
+            modifier = modifier,
+            contentPadding = PaddingValues(start = 24.dp, end = 24.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            items(recipeList) {
+                BigImageRecipeCard(recipe = it, onMealClick = onMealClick)
+            }
         }
     }
+
 }
 
 @Composable
@@ -74,6 +83,36 @@ private fun BigImageRecipeCard(
                     .padding(horizontal = 16.dp, vertical = 32.dp),
                 textAlign = TextAlign.Start
             )
+        }
+    }
+}
+
+@Composable
+private fun BigImageRecipeCardLoadingItem() {
+    ElevatedCard(
+        elevation = CardDefaults.cardElevation(
+            defaultElevation = 6.dp
+        ),
+        modifier = Modifier
+            .fillMaxHeight()
+            .width(180.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .shimmerEffect()
+        )
+    }
+}
+
+@Composable
+@Preview
+private fun BigImageRecipeCardLoading() {
+    Row {
+        Spacer(modifier = Modifier.width(16.dp))
+        repeat(2) {
+            BigImageRecipeCardLoadingItem()
+            Spacer(modifier = Modifier.width(16.dp))
         }
     }
 }
