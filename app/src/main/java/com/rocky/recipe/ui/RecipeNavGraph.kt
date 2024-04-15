@@ -27,17 +27,21 @@ fun RecipeNavGraph(
         RecipeNavigationActions(navController)
     }
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = RecipeDestinations.LANDING_ROUTE,
-        modifier = modifier,
-        route = "main"
-    ) {
-        composable(RecipeDestinations.LANDING_ROUTE) {
-            LandingNavGraph(navActions = navActions)
-        }
-        composable(RecipeDestinations.DETAIL_ROUTE) {
-            DetailScreen(onNavigationIconClick = { navController.popBackStack() })
+    Scaffold(modifier = modifier) { paddingValues ->
+        NavHost(
+            navController = navController,
+            startDestination = RecipeDestinations.LANDING_ROUTE,
+            modifier = modifier,
+            route = "main"
+        ) {
+            composable(RecipeDestinations.LANDING_ROUTE) {
+                LandingNavGraph(navActions = navActions)
+            }
+            composable(RecipeDestinations.DETAIL_ROUTE) {
+                DetailScreen(
+                    paddingValues = paddingValues,
+                    onNavigationIconClick = { navController.popBackStack() })
+            }
         }
     }
 }

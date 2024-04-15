@@ -1,6 +1,7 @@
 package com.rocky.feature.detail
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -26,6 +27,7 @@ import com.rocky.core.ui.R
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues,
     onNavigationIconClick: (() -> Unit),
     viewModel: DetailViewModel = hiltViewModel()
 ) {
@@ -33,6 +35,7 @@ fun DetailScreen(
 
     DetailContent(
         modifier = modifier,
+        paddingValues = paddingValues,
         recipe = uiState.recipe,
         onNavigationIconClick = onNavigationIconClick
     )
@@ -41,12 +44,14 @@ fun DetailScreen(
 @Composable
 fun DetailContent(
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues,
     recipe: Recipe,
     onNavigationIconClick: (() -> Unit)? = null
 ) {
 
     CollapsingToolBar(
         modifier = modifier,
+        paddingValues = paddingValues,
         imageUrl = recipe.strMealThumb,
         onNavigationIconClick = onNavigationIconClick
     ) {
@@ -86,6 +91,7 @@ fun DetailContent(
 fun DetailContentPreview() {
     DetailContent(
         modifier = Modifier.fillMaxSize(),
+        PaddingValues(16.dp),
         recipe = Recipe(
             strMeal = "Pasta",
             strMealThumb = "https://www.themealdb.com/images/media/meals/58oia61564916529.jpg",
