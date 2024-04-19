@@ -22,4 +22,16 @@ class DefaultHomeRepository @Inject constructor(
             }
         }
     }
+
+    override fun filterByCategory(category: String): Flow<Async<List<Recipe>>> {
+        return flow {
+            emit(Async.Loading)
+            try {
+                val response = network.filterByCategory(category)
+                emit(Async.Success(response.meals?.map { it.asRecipe() } ?: emptyList()))
+            } catch (e: Exception) {
+                emit(Async.Error(0))
+            }
+        }
+    }
 }

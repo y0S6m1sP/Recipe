@@ -4,7 +4,6 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
-import com.rocky.core.network.model.NetworkRecipe
 import com.rocky.core.network.model.NetworkRecipes
 
 interface TheMealNetworkDataSource {
@@ -26,7 +25,7 @@ interface TheMealNetworkDataSource {
 
     suspend fun filterByMainIngredient(ingredient: String): List<Recipe>
 
-    suspend fun filterByCategory(category: String): List<Recipe>
+    suspend fun filterByCategory(category: String): NetworkRecipes
 
     suspend fun filterByArea(area: String): List<Recipe>
 }

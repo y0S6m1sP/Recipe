@@ -20,6 +20,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+val categoryList = listOf("Beef", "Chicken", "Lamb", "Pork", "Seafood")
+
 @Composable
 @Preview(showBackground = true)
 fun CategoryBar(
@@ -27,13 +29,12 @@ fun CategoryBar(
     onLabelSelected: ((String) -> Unit)? = null
 ) {
     val selectedItem = remember { mutableIntStateOf(0) }
-    val labelList = listOf("Breakfast", "Lunch", "Dinner", "Snack")
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        itemsIndexed(labelList) { index, label ->
+        itemsIndexed(categoryList) { index, label ->
             CategoryItem(
                 text = label,
                 isSelected = selectedItem.intValue == index,

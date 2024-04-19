@@ -46,4 +46,26 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    fun filterByCategory(category: String) {
+        viewModelScope.launch {
+            homeRepository.filterByCategory(category).collect {
+                _uiState.update { currentState ->
+                    when (it) {
+                        is Async.Error -> {
+                            currentState.copy(isLoading = false)
+                        }
+
+                        Async.Loading -> {
+                            currentState.copy(isLoading = true)
+                        }
+
+                        is Async.Success -> {
+                            currentState.copy(isLoading = false, recipes = it.data)
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

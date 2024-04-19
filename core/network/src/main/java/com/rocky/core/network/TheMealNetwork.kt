@@ -52,7 +52,7 @@ class TheMealNetwork @Inject constructor(
     override suspend fun filterByMainIngredient(ingredient: String): List<Recipe> =
         api.filterByMainIngredient(ingredient = ingredient)
 
-    override suspend fun filterByCategory(category: String): List<Recipe> =
+    override suspend fun filterByCategory(category: String): NetworkRecipes =
         api.filterByCategory(category = category)
 
     override suspend fun filterByArea(area: String): List<Recipe> = api.filterByArea(area = area)

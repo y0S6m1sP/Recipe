@@ -28,6 +28,7 @@ import com.rocky.core.model.Recipe
 import com.rocky.core.ui.BigImageRecipeList
 import com.rocky.core.ui.CategoryBar
 import com.rocky.core.ui.SearchBar
+import com.rocky.core.ui.categoryList
 
 @Composable
 fun HomeScreen(
@@ -38,7 +39,7 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) {
-        viewModel.searchByNames("cake")
+        viewModel.filterByCategory(categoryList.first())
     }
 
     HomeContent(

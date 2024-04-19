@@ -4,7 +4,6 @@ import com.rocky.core.model.Area
 import com.rocky.core.model.Category
 import com.rocky.core.model.Ingredients
 import com.rocky.core.model.Recipe
-import com.rocky.core.network.model.NetworkRecipe
 import com.rocky.core.network.model.NetworkRecipes
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -39,7 +38,7 @@ interface TheMealApi {
     suspend fun filterByMainIngredient(@Query("i") ingredient: String): List<Recipe>
 
     @GET("filter.php")
-    suspend fun filterByCategory(@Query("c") category: String): List<Recipe>
+    suspend fun filterByCategory(@Query("c") category: String): NetworkRecipes
 
     @GET("filter.php")
     suspend fun filterByArea(@Query("a") area: String): List<Recipe>

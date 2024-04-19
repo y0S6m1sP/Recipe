@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface HomeRepository {
     fun searchByNames(name: String): Flow<Async<List<Recipe>>>
+    fun filterByCategory(category: String): Flow<Async<List<Recipe>>>
 }
