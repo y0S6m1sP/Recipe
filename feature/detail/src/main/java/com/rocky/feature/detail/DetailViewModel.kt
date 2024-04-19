@@ -1,18 +1,15 @@
 package com.rocky.feature.detail
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rocky.core.model.Recipe
-import com.rocky.data.repository.TheMealRepository
+import com.rocky.data.detail.repository.DetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 private const val StopTimeoutMillis: Long = 5000
@@ -27,14 +24,14 @@ data class DetailUiState(
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val theMealRepository: TheMealRepository
+    detailRepository: DetailRepository
 ) : ViewModel() {
 
     // maybe create a common module to store cross-feature constants
     private val recipeId: String = checkNotNull(savedStateHandle["recipeId"])
 
     val uiState: StateFlow<DetailUiState> =
-        theMealRepository.lookupById(recipeId)
+        detailRepository.lookupById(recipeId)
             .map { recipe ->
                 produceDetailUiState(recipe)
             }

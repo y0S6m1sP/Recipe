@@ -4,14 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.rocky.data"
+    namespace = "com.rocky.data.home"
 }
 
 dependencies {
-
+    api(projects.core.common)
     api(projects.core.network)
-
-    // remove model dependency after implement local db
-    implementation(projects.core.model)
-
 }

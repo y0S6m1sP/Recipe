@@ -2,9 +2,9 @@ package com.rocky.feature.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rocky.core.common.util.Async
 import com.rocky.core.model.Recipe
-import com.rocky.data.repository.TheMealRepository
-import com.rocky.data.util.Result
+import com.rocky.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,25 +20,25 @@ data class HomeUiState(
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val theMealRepository: TheMealRepository
+    private val homeRepository: HomeRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
     fun searchByNames(name: String) {
         viewModelScope.launch {
-            theMealRepository.searchByNames(name).collect {
+            homeRepository.searchByNames(name).collect {
                 _uiState.update { currentState ->
                     when (it) {
-                        is Result.Error -> {
+                        is Async.Error -> {
                             currentState.copy(isLoading = false)
                         }
 
-                        Result.Loading -> {
+                        Async.Loading -> {
                             currentState.copy(isLoading = true)
                         }
 
-                        is Result.Success -> {
+                        is Async.Success -> {
                             currentState.copy(isLoading = false, recipes = it.data)
                         }
                     }
