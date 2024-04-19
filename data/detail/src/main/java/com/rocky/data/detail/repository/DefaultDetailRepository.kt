@@ -1,5 +1,6 @@
 package com.rocky.data.detail.repository
 
+import com.rocky.core.common.util.Async
 import com.rocky.core.model.Recipe
 import com.rocky.core.network.TheMealNetworkDataSource
 import com.rocky.core.network.model.asRecipe
@@ -11,9 +12,15 @@ class DefaultDetailRepository @Inject constructor(
     private val network: TheMealNetworkDataSource
 ) : DetailRepository {
 
-    override fun lookupById(id: String): Flow<Recipe> {
+    override fun lookupById(id: String): Flow<Async<Recipe>> {
         return flow {
-            emit(network.lookupById(id).meals?.firstOrNull()?.asRecipe() ?: Recipe())
+            emit(Async.Loading)
+            try {
+                val response = network.lookupById(id)
+                emit(Async.Success(response.meals?.firstOrNull()?.asRecipe() ?: Recipe()))
+            } catch (e: Exception) {
+                emit(Async.Error(0))
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.rocky.core.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -41,6 +42,30 @@ fun IngredientItem(modifier: Modifier = Modifier, ingredient: Ingredients) {
                 color = MaterialTheme.colorScheme.primary
             )
         }
+    }
+}
+
+@Composable
+fun IngredientLoadingItem(modifier: Modifier = Modifier) {
+    Row(
+        modifier
+            .fillMaxWidth()
+            .height(56.dp), verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(56.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .shimmerEffect(),
+        )
+        Spacer(modifier = Modifier.width(24.dp))
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(24.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .shimmerEffect(),
+        )
     }
 }
 

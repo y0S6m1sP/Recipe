@@ -3,6 +3,7 @@ package com.rocky.feature.detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rocky.core.common.util.Async
 import com.rocky.core.model.Recipe
 import com.rocky.data.detail.repository.DetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,7 +34,11 @@ class DetailViewModel @Inject constructor(
     val uiState: StateFlow<DetailUiState> =
         detailRepository.lookupById(recipeId)
             .map { recipe ->
-                produceDetailUiState(recipe)
+                when (recipe) {
+                    is Async.Loading -> DetailUiState(isLoading = true)
+                    is Async.Error -> DetailUiState()
+                    is Async.Success -> produceDetailUiState(recipe.data)
+                }
             }
             .stateIn(
                 scope = viewModelScope,

@@ -48,10 +48,12 @@ fun CollapsingToolBar(
             contentDescription = "navigationIcon",
         )
     },
+    isLoading: Boolean = false,
     imageUrl: String,
     collapsingToolBarHeight: Dp = 300.dp,
     onNavigationIconClick: (() -> Unit)? = null,
-    content: LazyListScope.() -> Unit
+    content: LazyListScope.() -> Unit,
+    loadingContent: LazyListScope.() -> Unit = {}
 ) {
     val toolBarHeight = 56.dp + paddingValues.calculateTopPadding()
 
@@ -82,12 +84,21 @@ fun CollapsingToolBar(
         }
         .fillMaxWidth()
     ) {
-        AsyncImage(
-            modifier = Modifier.height(collapsingToolBarHeight),
-            model = imageUrl,
-            contentDescription = "background",
-            contentScale = ContentScale.Crop
-        )
+        if (isLoading) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(collapsingToolBarHeight)
+                    .shimmerEffect()
+            )
+        } else {
+            AsyncImage(
+                modifier = Modifier.height(collapsingToolBarHeight),
+                model = imageUrl,
+                contentDescription = "background",
+                contentScale = ContentScale.Crop
+            )
+        }
 
         Row(
             modifier = Modifier
@@ -119,7 +130,9 @@ fun CollapsingToolBar(
                     x = 0,
                     y = toolbarOffsetHeightPx.floatValue.roundToInt()
                             + collapsingToolBarHeight.roundToPx()
-                            - paddingValues.calculateTopPadding().roundToPx()
+                            - paddingValues
+                        .calculateTopPadding()
+                        .roundToPx()
                 )
             }
             .nestedScroll(nestedScrollConnection)
@@ -136,6 +149,7 @@ fun CollapsingToolBar(
             ),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        content()
+        if (isLoading) loadingContent()
+        else content()
     }
 }

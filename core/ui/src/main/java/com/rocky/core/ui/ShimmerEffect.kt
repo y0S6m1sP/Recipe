@@ -22,24 +22,34 @@ fun Modifier.shimmerEffect(): Modifier = composed {
     }
     val transition = rememberInfiniteTransition(label = "transition")
     val startOffsetX by transition.animateFloat(
-        initialValue = -5 * size.value.width.toFloat(),
-        targetValue = 5 * size.value.width.toFloat(),
+        initialValue = -2 * size.value.width.toFloat(),
+        targetValue = 2 * size.value.width.toFloat(),
         animationSpec = infiniteRepeatable(
             animation = tween(durationMillis = 1000)
         ),
         label = "startOffsetX"
     )
+    val startOffsetY by transition.animateFloat(
+        initialValue = -2 * size.value.height.toFloat(),
+        targetValue = 2 * size.value.height.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 1000)
+        ),
+        label = "startOffsetY"
+    )
+
 
     background(
         brush = Brush.linearGradient(
             colors = listOf(
+                Color(0xFFC8C8C8),
                 Color(0xFFB8B5B5),
-                Color(0xFF8F8B8B),
-                Color(0xFFB8B5B5),
+                Color(0xFFC8C8C8),
             ),
-            start = Offset(startOffsetX, 0f),
+            start = Offset(startOffsetX, startOffsetY),
             end = Offset(
-                startOffsetX + size.value.width, size.value.height.toFloat()
+                startOffsetX + size.value.width,
+                startOffsetY + size.value.height
             )
         )
     ).onGloballyPositioned {
