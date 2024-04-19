@@ -1,5 +1,6 @@
 package com.rocky.feature.home
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -41,8 +43,7 @@ fun HomeScreen(
 
     HomeContent(
         paddingValues = paddingValues,
-        isLoading = uiState.isLoading,
-        meals = uiState.recipes,
+        uiState = uiState,
         onCategoryClick = { viewModel.searchByNames(it) },
         onSearch = { viewModel.searchByNames(it) },
         onMealClick = onMealClick
@@ -53,8 +54,7 @@ fun HomeScreen(
 fun HomeContent(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    isLoading: Boolean = false,
-    meals: List<Recipe>? = emptyList(),
+    uiState: HomeUiState,
     onCategoryClick: ((String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onMealClick: ((String) -> Unit)? = null,
@@ -88,12 +88,22 @@ fun HomeContent(
         CategoryBar(modifier = Modifier.fillMaxWidth()) {
             onCategoryClick?.invoke(it)
         }
-        BigImageRecipeList(
-            modifier = Modifier.weight(1f),
-            isLoading = isLoading,
-            recipeList = meals ?: emptyList(),
-            onMealClick = onMealClick
-        )
+        if (!uiState.isLoading && uiState.recipes.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(
+                    text = stringResource(id = R.string.feature_home_no_recipes),
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        } else {
+            BigImageRecipeList(
+                modifier = Modifier.weight(1f),
+                isLoading = uiState.isLoading,
+                recipeList = uiState.recipes,
+                onMealClick = onMealClick
+            )
+        }
     }
 }
 
@@ -102,7 +112,7 @@ fun HomeContent(
 fun HomeContentPreview() {
     val recipe = Recipe(strMeal = "Bruschettas with cheese", strMealThumb = "")
     val recipeList = listOf(recipe, recipe, recipe)
-    HomeContent(paddingValues = PaddingValues(), meals = recipeList)
+    HomeContent(paddingValues = PaddingValues(), uiState = HomeUiState(false, recipeList))
 }
 
 
