@@ -1,7 +1,6 @@
 package com.rocky.core.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,6 +8,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -22,8 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,6 +38,7 @@ fun SearchBar(
     modifier: Modifier = Modifier,
     onSearch: ((String) -> Unit)? = null
 ) {
+    val focusManager = LocalFocusManager.current
     var text by remember { mutableStateOf(TextFieldValue()) }
 
     Row(
@@ -51,6 +55,11 @@ fun SearchBar(
             modifier = Modifier.weight(1f),
             value = text,
             onValueChange = { value -> text = value },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = {
+                onSearch?.invoke(text.text)
+                focusManager.clearFocus()
+            }),
             colors = TextFieldDefaults.colors(
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
@@ -67,7 +76,6 @@ fun SearchBar(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Icon(
-            modifier = Modifier.clickable { onSearch?.invoke(text.text) },
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "search",
             tint = onSearchBar
