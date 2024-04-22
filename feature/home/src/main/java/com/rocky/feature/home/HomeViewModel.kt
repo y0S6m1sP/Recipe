@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocky.core.common.util.Async
 import com.rocky.core.model.Recipe
+import com.rocky.core.ui.categoryList
 import com.rocky.data.repository.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,9 @@ import javax.inject.Inject
 
 data class HomeUiState(
     val isLoading: Boolean = true,
-    val recipes: List<Recipe> = emptyList()
+    val recipes: List<Recipe> = emptyList(),
+    val categoryIndex: Int = 0,
+    val searchQuery: String = ""
 )
 
 @HiltViewModel
@@ -25,6 +28,11 @@ class HomeViewModel @Inject constructor(
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+
+    init {
+        filterByCategory(0, categoryList.first())
+    }
+
     fun searchByNames(name: String) {
         viewModelScope.launch {
             homeRepository.searchByNames(name).collect {
@@ -39,7 +47,12 @@ class HomeViewModel @Inject constructor(
                         }
 
                         is Async.Success -> {
-                            currentState.copy(isLoading = false, recipes = it.data)
+                            currentState.copy(
+                                isLoading = false,
+                                recipes = it.data,
+                                searchQuery = name,
+                                categoryIndex = -1
+                            )
                         }
                     }
                 }
@@ -47,7 +60,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun filterByCategory(category: String) {
+    fun filterByCategory(index: Int, category: String) {
         viewModelScope.launch {
             homeRepository.filterByCategory(category).collect {
                 _uiState.update { currentState ->
@@ -61,7 +74,11 @@ class HomeViewModel @Inject constructor(
                         }
 
                         is Async.Success -> {
-                            currentState.copy(isLoading = false, recipes = it.data)
+                            currentState.copy(
+                                isLoading = false,
+                                recipes = it.data,
+                                categoryIndex = index
+                            )
                         }
                     }
                 }

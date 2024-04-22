@@ -28,18 +28,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 
 @Composable
-@Preview
 fun SearchBar(
     modifier: Modifier = Modifier,
+    searchQuery: String = "",
     onSearch: ((String) -> Unit)? = null
 ) {
     val focusManager = LocalFocusManager.current
-    var text by remember { mutableStateOf(TextFieldValue()) }
+    var text by remember { mutableStateOf(TextFieldValue(text = searchQuery)) }
 
     Row(
         modifier = modifier

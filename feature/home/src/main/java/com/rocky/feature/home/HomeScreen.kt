@@ -1,5 +1,6 @@
 package com.rocky.feature.home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,7 +28,6 @@ import com.rocky.core.model.Recipe
 import com.rocky.core.ui.BigImageRecipeList
 import com.rocky.core.ui.CategoryBar
 import com.rocky.core.ui.SearchBar
-import com.rocky.core.ui.categoryList
 
 @Composable
 fun HomeScreen(
@@ -36,16 +35,14 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     onMealClick: ((String) -> Unit)? = null
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    BackHandler(onBack = {})
 
-    LaunchedEffect(key1 = Unit) {
-        viewModel.filterByCategory(categoryList.first())
-    }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeContent(
         paddingValues = paddingValues,
         uiState = uiState,
-        onCategoryClick = { viewModel.searchByNames(it) },
+        onCategoryClick = { index, category -> viewModel.filterByCategory(index, category) },
         onSearch = { viewModel.searchByNames(it) },
         onMealClick = onMealClick
     )
@@ -56,7 +53,7 @@ fun HomeContent(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
     uiState: HomeUiState,
-    onCategoryClick: ((String) -> Unit)? = null,
+    onCategoryClick: ((Int, String) -> Unit)? = null,
     onSearch: ((String) -> Unit)? = null,
     onMealClick: ((String) -> Unit)? = null,
 ) {
@@ -83,11 +80,17 @@ fun HomeContent(
                 )
             }
         }
-        SearchBar(modifier = Modifier.padding(horizontal = 24.dp)) {
+        SearchBar(
+            modifier = Modifier.padding(horizontal = 24.dp),
+            searchQuery = uiState.searchQuery
+        ) {
             onSearch?.invoke(it)
         }
-        CategoryBar(modifier = Modifier.fillMaxWidth()) {
-            onCategoryClick?.invoke(it)
+        CategoryBar(
+            modifier = Modifier.fillMaxWidth(),
+            selectedCategoryItem = uiState.categoryIndex
+        ) { index, category ->
+            onCategoryClick?.invoke(index, category)
         }
         if (!uiState.isLoading && uiState.recipes.isEmpty()) {
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {

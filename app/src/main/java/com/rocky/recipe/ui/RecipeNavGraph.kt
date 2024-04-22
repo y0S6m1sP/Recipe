@@ -2,7 +2,10 @@ package com.rocky.recipe.ui
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -27,6 +30,7 @@ fun RecipeNavGraph(
         RecipeNavigationActions(navController)
     }
 ) {
+    var selectedNavItem by remember { mutableIntStateOf(0) }
     Scaffold(modifier = modifier) { paddingValues ->
         NavHost(
             navController = navController,
@@ -35,7 +39,9 @@ fun RecipeNavGraph(
             route = "main"
         ) {
             composable(RecipeDestinations.LANDING_ROUTE) {
-                LandingNavGraph(navActions = navActions)
+                LandingNavGraph(navActions = navActions, selectedNavItem = selectedNavItem) {
+                    selectedNavItem = it
+                }
             }
             composable(RecipeDestinations.DETAIL_ROUTE) {
                 DetailScreen(
@@ -50,13 +56,16 @@ fun RecipeNavGraph(
 fun LandingNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    navActions: RecipeNavigationActions
+    navActions: RecipeNavigationActions,
+    selectedNavItem: Int,
+    onSelectedItemChange: (Int) -> Unit
 ) {
     Scaffold(
         modifier = modifier,
         bottomBar = {
-            RecipeBottomBar {
-                navigateToLandingDestination(navController, it)
+            RecipeBottomBar(selectedNavItem = selectedNavItem) { index, destination ->
+                onSelectedItemChange(index)
+                navigateToLandingDestination(navController, destination)
             }
         },
     ) {

@@ -1,5 +1,6 @@
 package com.rocky.feature.favorites
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ fun FavoritesScreen(
     onMealClick: ((String) -> Unit),
     viewModel: FavoritesViewModel = hiltViewModel()
 ) {
+    BackHandler(onBack = {})
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     FavoritesContent(modifier = modifier, uiState = uiState, paddingValues, onMealClick)
 }

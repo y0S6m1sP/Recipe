@@ -11,24 +11,20 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 val categoryList = listOf("Beef", "Chicken", "Lamb", "Pork", "Seafood")
 
 @Composable
-@Preview(showBackground = true)
 fun CategoryBar(
     modifier: Modifier = Modifier,
-    onLabelSelected: ((String) -> Unit)? = null
+    selectedCategoryItem: Int,
+    onLabelSelected: ((Int, String) -> Unit)? = null
 ) {
-    val selectedItem = remember { mutableIntStateOf(0) }
     LazyRow(
         modifier = modifier,
         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
@@ -37,10 +33,9 @@ fun CategoryBar(
         itemsIndexed(categoryList) { index, label ->
             CategoryItem(
                 text = label,
-                isSelected = selectedItem.intValue == index,
+                isSelected = selectedCategoryItem == index,
                 onLabelSelected = {
-                    selectedItem.intValue = index
-                    onLabelSelected?.invoke(it)
+                    onLabelSelected?.invoke(index, it)
                 })
         }
     }
