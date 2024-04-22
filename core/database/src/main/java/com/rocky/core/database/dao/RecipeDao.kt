@@ -19,4 +19,7 @@ interface RecipeDao {
 
     @Query("SELECT * FROM local_recipe WHERE idMeal = :id")
     fun observeById(id: String): Flow<LocalRecipe?>
+
+    @Query("SELECt * FROM local_recipe")
+    fun observeAll(): Flow<List<LocalRecipe>>
 }

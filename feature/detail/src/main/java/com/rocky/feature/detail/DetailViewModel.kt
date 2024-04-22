@@ -5,20 +5,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rocky.core.common.di.IoDispatcher
 import com.rocky.core.common.util.Async
+import com.rocky.core.common.util.WhileUiSubscribed
 import com.rocky.core.model.Recipe
 import com.rocky.data.detail.repository.DetailRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private const val StopTimeoutMillis: Long = 5000
-
-val WhileUiSubscribed: SharingStarted = SharingStarted.WhileSubscribed(StopTimeoutMillis)
 
 data class DetailUiState(
     val isLoading: Boolean = false,

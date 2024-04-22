@@ -64,7 +64,9 @@ fun LandingNavGraph(
             homeScreen(it) {
                 navActions.navigateToDetail(it)
             }
-            favoriteScreen()
+            favoriteScreen(it) {
+                navActions.navigateToDetail(it)
+            }
             settingsScreen()
         }
     }

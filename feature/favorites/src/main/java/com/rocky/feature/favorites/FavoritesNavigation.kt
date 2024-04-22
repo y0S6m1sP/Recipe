@@ -1,5 +1,6 @@
 package com.rocky.feature.favorites
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -10,8 +11,11 @@ const val FAVORITES_ROUTE = "favorites_route"
 fun NavController.navigateToFavorites(navOptions: NavOptions) =
     navigate(FAVORITES_ROUTE, navOptions)
 
-fun NavGraphBuilder.favoriteScreen() {
+fun NavGraphBuilder.favoriteScreen(
+    paddingValues: PaddingValues,
+    onMealClick: ((String) -> Unit)
+) {
     composable(route = FAVORITES_ROUTE) {
-        FavoritesScreen()
+        FavoritesScreen(paddingValues = paddingValues, onMealClick = onMealClick)
     }
 }
