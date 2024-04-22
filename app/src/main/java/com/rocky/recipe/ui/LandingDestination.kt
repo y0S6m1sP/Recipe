@@ -1,14 +1,5 @@
 package com.rocky.recipe.ui
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Favorite
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.rounded.Settings
-import androidx.compose.material.icons.twotone.Favorite
-import androidx.compose.material.icons.twotone.Home
-import androidx.compose.material.icons.twotone.Settings
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.painterResource
 import com.rocky.recipe.R
 import com.rocky.feature.favorites.R as favoritesR
 import com.rocky.feature.home.R as homeR

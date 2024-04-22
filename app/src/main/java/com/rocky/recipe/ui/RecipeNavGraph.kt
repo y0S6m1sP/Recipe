@@ -40,7 +40,7 @@ fun RecipeNavGraph(
             composable(RecipeDestinations.DETAIL_ROUTE) {
                 DetailScreen(
                     paddingValues = paddingValues,
-                    onNavigationIconClick = { navController.popBackStack() })
+                    onBackPressed = { navController.popBackStack() })
             }
         }
     }

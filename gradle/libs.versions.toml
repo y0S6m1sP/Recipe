@@ -62,6 +62,10 @@ retrofit-core = { group = "com.squareup.retrofit2", name = "retrofit", version.r
 retrofit-moshi-converter = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
 square-moshi-ktx = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-test = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -83,6 +87,7 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 jetbrainsKotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+googleDevtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 # Custom plugins
 recipe-android-application = { id = "recipe.android.application", version = "unspecified" }

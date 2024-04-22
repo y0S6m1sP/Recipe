@@ -6,4 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface DetailRepository {
     fun lookupById(id: String): Flow<Async<Recipe>>
+
+    suspend fun addFavorite(recipe: Recipe)
+
+    suspend fun deleteFavorite(recipe: Recipe)
+
+    fun observeFavorite(idMeal: String): Flow<Recipe?>
 }

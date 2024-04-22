@@ -1,11 +1,11 @@
 package com.rocky.core.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,9 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
@@ -41,17 +38,10 @@ import kotlin.math.roundToInt
 fun CollapsingToolBar(
     modifier: Modifier = Modifier,
     paddingValues: PaddingValues,
-    navigationIcon: @Composable (modifier: Modifier) -> Unit = {
-        Icon(
-            modifier = it,
-            imageVector = Icons.Filled.ArrowBack,
-            contentDescription = "navigationIcon",
-        )
-    },
     isLoading: Boolean = false,
     imageUrl: String,
     collapsingToolBarHeight: Dp = 300.dp,
-    onNavigationIconClick: (() -> Unit)? = null,
+    toolBarContent: @Composable RowScope.() -> Unit,
     content: LazyListScope.() -> Unit,
     loadingContent: LazyListScope.() -> Unit = {}
 ) {
@@ -112,12 +102,16 @@ fun CollapsingToolBar(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            navigationIcon(
-                Modifier
-                    .clickable {
-                        onNavigationIconClick?.invoke()
-                    }
-                    .padding(top = 24.dp, start = 12.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = paddingValues.calculateTopPadding(),
+                        end = 8.dp
+                    )
+            ) {
+                toolBarContent()
+            }
         }
     }
 
