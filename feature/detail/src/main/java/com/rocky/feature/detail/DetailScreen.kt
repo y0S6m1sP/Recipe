@@ -116,7 +116,7 @@ fun DetailContent(
                     modifier = Modifier.size(favoriteSize),
                     imageVector = if (uiState.isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                     contentDescription = "navigationIcon",
-                    tint = if (uiState.isFavorite) Color.Red else Color.Black
+                    tint = if (uiState.isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
                 )
             }
         },
