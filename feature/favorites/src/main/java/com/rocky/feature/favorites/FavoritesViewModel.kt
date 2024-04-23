@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 data class FavoritesUiState(
-    val favoritesList: List<Recipe> = listOf()
+    val favoritesList: Map<String, List<Recipe>> = mapOf()
 )
 
 @HiltViewModel
@@ -21,8 +21,8 @@ class FavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<FavoritesUiState> =
-        favoritesRepository.observeFavorites().map {
-            FavoritesUiState(favoritesList = it)
+        favoritesRepository.observeFavorites().map { favorites ->
+            FavoritesUiState(favoritesList = favorites.groupBy { it.strCategory })
         }.stateIn(
             scope = viewModelScope,
             started = WhileUiSubscribed,

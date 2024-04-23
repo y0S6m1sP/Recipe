@@ -47,6 +47,6 @@ fun FavoritesContent(
             iconResId = commonR.drawable.ic_cooking,
             textResId = R.string.feature_favorites_title
         )
-        FavoriteRecipeList(recipeList = uiState.favoritesList, onMealClick = onMealClick)
+        FavoriteRecipeList(favoriteList = uiState.favoritesList, onMealClick = onMealClick)
     }
 }
