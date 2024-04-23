@@ -13,7 +13,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -27,7 +26,7 @@ fun CategoryBar(
 ) {
     LazyRow(
         modifier = modifier,
-        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 24.dp),
+        contentPadding = PaddingValues(horizontal = 24.dp, vertical = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         itemsIndexed(categoryList) { index, label ->
@@ -58,7 +57,6 @@ fun CategoryItem(
             .padding(horizontal = 24.dp, vertical = 8.dp),
         text = text,
         fontSize = 16.sp,
-        fontWeight = FontWeight.Bold,
         color = if (isSelected) MaterialTheme.colorScheme.secondary else onUnselectedChip
     )
 }

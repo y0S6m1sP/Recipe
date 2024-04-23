@@ -17,7 +17,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,6 +27,8 @@ import com.rocky.core.model.Recipe
 import com.rocky.core.ui.BigImageRecipeList
 import com.rocky.core.ui.CategoryBar
 import com.rocky.core.ui.SearchBar
+import com.rocky.core.ui.TitleIconText
+import com.rocky.core.common.R as commonR
 
 @Composable
 fun HomeScreen(
@@ -64,12 +65,9 @@ fun HomeContent(
     ) {
         Row {
             Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp)) {
-                Text(
-                    text = stringResource(id = R.string.feature_home_hello_chef),
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Start,
-                    color = MaterialTheme.colorScheme.primary
+                TitleIconText(
+                    iconResId = commonR.drawable.ic_cooking,
+                    textResId = R.string.feature_home_title
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
