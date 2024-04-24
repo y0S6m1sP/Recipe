@@ -1,17 +1,22 @@
 # Recipe
 
-This app is a playground for practice multi-module architecture with Jetpack Compose.
+Recipe is a multi-module app build with MVI architecture and Jetpack Compose.
 
 ## Feature 
 
 **Recipe** display contents from [TheMealDB](https://www.themealdb.com/).
 User can search for a recipe and save it to favorite.
 
-## Screenshots
+### Home page and Search
+![home_search](./docs/home_search.gif)
 
-<img src="https://i.ibb.co/HqK2cTp/Screenshot-20240415-163545-Recipe.jpg" width="300">
-<img src="https://i.ibb.co/vH1HvdR/Screenshot-20240415-163605-Recipe.jpg" width="300">
-<img src="https://i.ibb.co/BCb0yFT/Screenshot-20240415-163608-Recipe.jpg" width="300">
-<img src="https://i.ibb.co/BBYqq21/Screenshot-20240415-170956-Recipe.jpg" width="300">
+### Favorite
+![favorite](./docs/favorite.gif)
 
 ## Architecture (WIP)
+
+## Build
+
+You can directly build the project with Android Studio.
+
+## Testing (WIP)
