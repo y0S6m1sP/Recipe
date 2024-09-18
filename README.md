@@ -1,6 +1,6 @@
 # Recipe
 
-Recipe is a multi-module app build with MVI architecture and Jetpack Compose.
+Recipe is a multi-module app build with MVVM architecture and Jetpack Compose.
 
 ## Feature 
 
