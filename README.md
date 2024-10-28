@@ -13,10 +13,6 @@ User can search for a recipe and save it to favorite.
 ### Favorite
 ![favorite](./docs/favorite.gif)
 
-## Architecture (WIP)
-
 ## Build
 
 You can directly build the project with Android Studio.
-
-## Testing (WIP)
